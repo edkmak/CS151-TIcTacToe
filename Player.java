@@ -1,6 +1,4 @@
-/*This class represents a player in a game tic tac toe.
- * 
- */
+package Project;
 
 public class Player {
 	private boolean won;
@@ -25,5 +23,7 @@ public class Player {
 			Board.drawX();
 		}
 	}
-
+	public int getPlayer(){
+		return XorO;
+	}
 }
