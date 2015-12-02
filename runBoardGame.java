@@ -5,11 +5,12 @@ import java.util.Random;
 /*
  * Runs a game of tic tac toe. Contains game logic (win condition, illegal moves, etc.).
  *  Initializes the board, score board, and players. 
- *  Upon winning display a ÅgPlayer X won!Åh  May include Ågnew gameÅh button. 
+ *  Upon winning display a ÔøΩgPlayer X won!ÔøΩh  May include ÔøΩgnew gameÔøΩh button. 
  */
 public class runBoardGame{
 	private Player players[];
 	private Board gameBoard;
+	private int currentTurn;
 
 	public runBoardGame(){
 		players = new Player[2];
@@ -17,14 +18,6 @@ public class runBoardGame{
 			players[0] = new Player("X");
 			players[1] = new Player("O");
 			gameBoard = new Board();
-
-			//randomize who is going first
-			Random rand = new Random();
-			int first = (int) (rand.nextInt(1) + 1);
-			if(first == 1)
-				players[0].setTurn(true);
-			else
-				players[1].setTurn(true);
 		}
 		catch(Exception e){
 			System.out.println(e.getMessage());
@@ -32,7 +25,7 @@ public class runBoardGame{
 	}
 	public void play(){
 		//play while neither player has won
-		int win = 0;
+		boolean win = false; 
 		int i = 0;
 		while(!players[0].getWin() && !players[1].getWin()){
 			int player = players[0].getPlayer();
@@ -43,7 +36,7 @@ public class runBoardGame{
 			//check win
 			//boolean check = checkWin(array, 1);
 		}
-		if(win == 0)
+		if(!win)
 			;
 		else
 			;
@@ -52,8 +45,19 @@ public class runBoardGame{
 		//reset all conditions
 		players[0].setWin(false);
 		players[1].setWin(false);
-		gameBoard.resetCells();
+		//gameBoard.resetCells();
 	}
+	
+	public int getCurrentTurn(){
+		return currentTurn;
+	}
+	
+	public  void setCurrentTurn(int i){
+		this.currentTurn = i;
+	}
+		
+	
+	
 	public boolean checkWin(Cell cellArray[], int player){
 		return((cellArray[0].getTaken() == player && cellArray[1].getTaken() == player && cellArray[2].getTaken() == player) || //first row
 				(cellArray[3].getTaken() == player && cellArray[4].getTaken() == player && cellArray[5].getTaken() == player) || //second row

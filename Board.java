@@ -2,16 +2,19 @@ package Project;
 
 import java.awt.*;
 import java.awt.geom.*;
+
 import javax.swing.*;
+
 import java.awt.event.*;
 
 public class Board extends JFrame{
 	public static final int WINDOW_HEIGHT = 600;
 	public static final int WINDOW_WIDTH = 600;
 
-	private JPanel cellArray[];
+	private Cell cellArray[];
 	private JPanel ticTacToeBoard;
 	private Scoreboard sb;
+	private int currentTurn = 0;
 	
 	class GPanel extends JPanel{
 		public GPanel() {
@@ -49,22 +52,26 @@ public class Board extends JFrame{
 
 		ticTacToeBoard.setLayout(new GridLayout(3,3));
 		for(int i= 0; i < 9; i++){
-			Cell c = new Cell();
+			Cell c = new Cell(i);
 			c.addMouseListener(new MouseAdapter(){
-				public void mousePressed(MouseEvent e){
-					if(c.getTaken() == 0){
-						//do drawing here
+					public void mousePressed(MouseEvent e){
+						System.out.println(c.i);
+						currentTurn = currentTurn * -1 + 1;
+						if(currentTurn == 0){
+							c.drawO();
+							//checkWin(0);
+						}else{
+							c.drawX();
+							//checkWin(1);
+						}
 					}
-					else{
-						//give error
-					}
-				}
-			});
+				});
 			cellArray[i] = c;
 		}
 
-		for(int i = 0; i < 9; i++)
+		for(int i = 0; i < 9; i++){
 			ticTacToeBoard.add(cellArray[i]);
+		}
 
 		add(ticTacToeBoard, BorderLayout.WEST);
 		sb = new Scoreboard();
@@ -76,11 +83,25 @@ public class Board extends JFrame{
 
 	}
 	public void resetCells(){
-		
+		for(Cell c: cellArray){
+			c.setTaken(0);
+		}
 	}
 	public Scoreboard getScoreboard(){
 		return sb;
 	}
+	
+	public boolean checkWin(int player){
+		return((cellArray[0].getTaken() == player && cellArray[1].getTaken() == player && cellArray[2].getTaken() == player) || //first row
+				(cellArray[3].getTaken() == player && cellArray[4].getTaken() == player && cellArray[5].getTaken() == player) || //second row
+				(cellArray[6].getTaken() == player && cellArray[7].getTaken() == player && cellArray[8].getTaken() == player) || //third row
+				(cellArray[0].getTaken() == player && cellArray[3].getTaken() == player && cellArray[6].getTaken() == player) || //first column
+				(cellArray[1].getTaken() == player && cellArray[4].getTaken() == player && cellArray[7].getTaken() == player) || //second column
+				(cellArray[2].getTaken() == player && cellArray[5].getTaken() == player && cellArray[8].getTaken() == player) || //third column
+				(cellArray[0].getTaken() == player && cellArray[4].getTaken() == player && cellArray[8].getTaken() == player) || //diagonal
+				(cellArray[2].getTaken() == player && cellArray[4].getTaken() == player && cellArray[6].getTaken() == player)); //diagonal
+	}
+	
 }
 
 

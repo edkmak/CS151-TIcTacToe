@@ -27,7 +27,7 @@ public class Scoreboard extends JPanel{
 		
 		//create New Game button
 		newGame = new Button("New Game");
-		newGame.setEnabled(false); //change when game state is finished
+		//newGame.setEnabled(false); //change when game state is finished
 		
 		//set panel layout
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -61,10 +61,5 @@ public class Scoreboard extends JPanel{
 		else
 			currentPlayer.setText("Player O's turn!");
 	}
-	public void enableButton(){
-		newGame.setEnabled(true);
-	}
-	public void disableButton(){
-		newGame.setEnabled(false);
-	}
+
 }
