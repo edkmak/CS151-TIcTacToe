@@ -2,6 +2,7 @@ package Project;
 
 import java.awt.BorderLayout;
 import java.awt.Button;
+import java.io.File;
 
 import javax.swing.*;
 
@@ -13,7 +14,6 @@ public class Scoreboard extends JPanel{
 	private JLabel playerX;
 	private JLabel tie;
 	private JLabel currentPlayer;
-
 	
 	public Scoreboard(){
 		//initialize count and create labels
@@ -39,7 +39,7 @@ public class Scoreboard extends JPanel{
 
 	}
 	public void addWin(int player){
-		if(player == 0){
+		if(player == 1){
 			playerOWins++;
 			playerO.setText("Player O: " + playerOWins);
 		}
@@ -53,7 +53,7 @@ public class Scoreboard extends JPanel{
 		tie.setText("Ties: " + tieCount);
 	}
 	public void updateTurn(int player){
-		if(player == 1)
+		if(player == 0)
 			currentPlayer.setText("Player X's turn!");
 		else
 			currentPlayer.setText("Player O's turn!");
