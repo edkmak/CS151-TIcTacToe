@@ -13,7 +13,7 @@ public class Scoreboard extends JPanel{
 	private JLabel playerX;
 	private JLabel tie;
 	private JLabel currentPlayer;
-	private Button newGame;
+
 	
 	public Scoreboard(){
 		//initialize count and create labels
@@ -24,10 +24,7 @@ public class Scoreboard extends JPanel{
 		playerX = new JLabel("Player X: " + playerXWins);
 		tie = new JLabel("Ties: " + tieCount);
 		currentPlayer = new JLabel();
-		
-		//create New Game button
-		newGame = new Button("New Game");
-		//newGame.setEnabled(false); //change when game state is finished
+
 		
 		//set panel layout
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -39,7 +36,7 @@ public class Scoreboard extends JPanel{
 		tie.setBorder(BorderFactory.createEmptyBorder(0, 0, 200, 0));
 		add(currentPlayer);
 		currentPlayer.setBorder(BorderFactory.createEmptyBorder(0, 0, 200, 0));
-		add(newGame);
+
 	}
 	public void addWin(int player){
 		if(player == 0){
@@ -56,7 +53,7 @@ public class Scoreboard extends JPanel{
 		tie.setText("Ties: " + tieCount);
 	}
 	public void updateTurn(int player){
-		if(player == 0)
+		if(player == 1)
 			currentPlayer.setText("Player X's turn!");
 		else
 			currentPlayer.setText("Player O's turn!");

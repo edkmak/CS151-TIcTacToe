@@ -2,7 +2,8 @@ package Project;
 
 public class TicTacToe {
 	public static void main(String[] args){
-		runBoardGame newGame = new runBoardGame();
+		Board newGame = new Board();
+		
 		newGame.play();
 	}
 }
