@@ -1,49 +1,37 @@
 /* Cell class */
 package Project;
 
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
-public class Cell {
+public class Cell extends JPanel{
 
-  public static final int MIN = 1;
-  public static final int MAX = 3;
-  private ImageIcon xIcon = new ImageIcon("images/x.png"));
-  private ImageIcon oIcon = new ImageIcon("images/o.png"));
-  
-  private int x, y;
-  boolean taken;
+	public static final int MIN = 1;
+	public static final int MAX = 3;
+	private int x, y;
+	private int taken;
 
-  // Constructor to create cell
-  public Cell(){
-    this.x = 0;
-    this.y = 0;
-    taken = false;
-  }
+	// Constructor to assign value to cell
+	public Cell(/*int x, int y*/){
 
-  public int getX(){ return x; }
-  public int getY() { return y; }
+	/*	if( x<MIN | x >MAX | y<MIN | y>MAX ){
+			throw new IllegalArgumentException();
+		}
 
-  // Methods to assign values to cell
-  public ImageIcon drawX(int x, int y){
-    if (x<MIN | x>MAX | y<MIN | y>MAX){
-      throw new Exception("Input outside of alloted range");
-    }
-    this.x = x;
-    this.y = y;
-    taken = true;
-    return xIcon;
-  }
-  public ImageIcon drawO(int x, int y){
-    if (x<MIN | x>MAX | y<MIN | y>MAX){
-      throw new Exception("Input outside of alloted range");
-    }
-    this.x = x;
-    this.y = y;
-    taken=true;
-    return oIcon
-  }
+		this.x = x;
+		this.y = y;*/
+		taken = 0;
+	}
 
-  public isEmpty() {return taken; }
-
+	public int getX(){
+		return x;
+	}
+	public int getY(){
+		return y;
+		}
+	public int getTaken(){
+		return taken; 
+	}
+	public void setTaken(int player){
+		taken = player;
+	};
 }

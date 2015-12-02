@@ -1,15 +1,19 @@
 package Project;
 
+import java.awt.BorderLayout;
+import java.awt.Button;
+
 import javax.swing.*;
 
-public class Scoreboard {
+public class Scoreboard extends JPanel{
 	private int playerOWins;
 	private int playerXWins;
 	private int tieCount;
 	private JLabel playerO;
 	private JLabel playerX;
 	private JLabel tie;
-	private JPanel scoreboard;
+	private JLabel currentPlayer;
+	private Button newGame;
 	
 	public Scoreboard(){
 		//initialize count and create labels
@@ -19,33 +23,48 @@ public class Scoreboard {
 		playerO = new JLabel("Player O: " + playerOWins);
 		playerX = new JLabel("Player X: " + playerXWins);
 		tie = new JLabel("Ties: " + tieCount);
+		currentPlayer = new JLabel();
 		
-		//create panel
-		scoreboard = new JPanel();
-		scoreboard.setLayout(new BoxLayout(scoreboard, BoxLayout.PAGE_AXIS));
+		//create New Game button
+		newGame = new Button("New Game");
+		newGame.setEnabled(false); //change when game state is finished
+		
+		//set panel layout
+		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		
 		//add labels
-		scoreboard.add(playerO);
-		scoreboard.add(playerX);
-		scoreboard.add(tie);
+		add(playerO, BorderLayout.WEST);
+		add(playerX, BorderLayout.WEST);
+		add(tie, BorderLayout.WEST);
+		tie.setBorder(BorderFactory.createEmptyBorder(0, 0, 200, 0));
+		add(currentPlayer);
+		currentPlayer.setBorder(BorderFactory.createEmptyBorder(0, 0, 200, 0));
+		add(newGame);
 	}
-	public void addWin(Player p){
-		int player = p.getPlayer();
-		
+	public void addWin(int player){
 		if(player == 0){
 			playerOWins++;
-			tie.setText("Player O: " + playerOWins);
+			playerO.setText("Player O: " + playerOWins);
 		}
 		else{
 			playerXWins++;
-			tie.setText("Player X: " + playerXWins);
+			playerX.setText("Player X: " + playerXWins);
 		}
 	}
 	public void addTie(){
 		tieCount++;
 		tie.setText("Ties: " + tieCount);
 	}
-	public JPanel getScoreboard(){
-		return scoreboard;
+	public void updateTurn(int player){
+		if(player == 0)
+			currentPlayer.setText("Player X's turn!");
+		else
+			currentPlayer.setText("Player O's turn!");
+	}
+	public void enableButton(){
+		newGame.setEnabled(true);
+	}
+	public void disableButton(){
+		newGame.setEnabled(false);
 	}
 }
