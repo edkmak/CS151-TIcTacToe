@@ -35,14 +35,14 @@ public class Board extends JFrame {
 
 		c = new Cell[8];
 		
-		p.setLayout(new GridLayout(3,3));
+		/*p.setLayout(new GridLayout(3,3));
 		for(int i= 0; i < 8; i++){
 			c[i] = new Cell();
 		}
 		
 		for(int i = 0; i < 8; i++){
 			p.add(c[i]);
-		}
+		}*/
 		
 		add(p, BorderLayout.WEST);
 		Scoreboard sb = new Scoreboard();
