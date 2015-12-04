@@ -17,6 +17,7 @@ public class Board extends JFrame{
 	private Scoreboard sb;
 	private Button newGame;
 	private int currentTurn = 0;
+	private boolean enabled;
 
 	class GPanel extends JPanel{
 		public GPanel() {
@@ -62,25 +63,40 @@ public class Board extends JFrame{
 		cellArray = new Cell[9];
 
 		ticTacToeBoard.setLayout(new GridLayout(3,3));
+		enabled = true;
 		for(int i= 0; i < 9; i++){
 			Cell c = new Cell();
 			c.addMouseListener(new MouseAdapter(){
 				public void mousePressed(MouseEvent e){
-					currentTurn = currentTurn * -1 + 1;
-					if(currentTurn == 0){
-						c.drawO();
-						sb.updateTurn(currentTurn);
-						if(checkWin('O'))
-							sb.addWin(1);
-						else if(checkTie() && !checkWin('O'))
-							sb.addTie();
-					}else{
-						c.drawX();
-						sb.updateTurn(currentTurn);
-						if(checkWin('X'))
-							sb.addWin(0);
-						else if(checkTie() && !checkWin('X'))
-							sb.addTie();
+					if(enabled){
+						currentTurn = currentTurn * -1 + 1;
+						if(currentTurn == 0){
+							c.drawO();
+							sb.updateTurn(currentTurn);
+							if(checkWin('O')){
+								sb.addWin(1);
+								sb.updateResult(1);
+								enabled = false;
+							}
+							else if(checkTie() && !checkWin('O')){
+								sb.addTie();
+								sb.updateResult(-1);
+								enabled = false;
+							}
+						}else{
+							c.drawX();
+							sb.updateTurn(currentTurn);
+							if(checkWin('X')){
+								sb.addWin(0);
+								sb.updateResult(0);
+								enabled = false;
+							}
+							else if(checkTie() && !checkWin('X')){
+								sb.addTie();
+								sb.updateResult(-1);
+								enabled = false;
+							}
+						}
 					}
 				}
 			});
@@ -113,6 +129,7 @@ public class Board extends JFrame{
 			c.removeCell();
 		}
 		repaint();
+		enabled = true;
 	}
 	public boolean checkTie(){
 		for(Cell c: cellArray){

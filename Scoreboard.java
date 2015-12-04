@@ -14,6 +14,7 @@ public class Scoreboard extends JPanel{
 	private JLabel playerX;
 	private JLabel tie;
 	private JLabel currentPlayer;
+	private JLabel result;
 	
 	public Scoreboard(){
 		//initialize count and create labels
@@ -24,7 +25,7 @@ public class Scoreboard extends JPanel{
 		playerX = new JLabel("Player X: " + playerXWins);
 		tie = new JLabel("Ties: " + tieCount);
 		currentPlayer = new JLabel();
-
+		result = new JLabel();
 		
 		//set panel layout
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -35,7 +36,8 @@ public class Scoreboard extends JPanel{
 		add(tie, BorderLayout.WEST);
 		tie.setBorder(BorderFactory.createEmptyBorder(0, 0, 200, 0));
 		add(currentPlayer);
-		currentPlayer.setBorder(BorderFactory.createEmptyBorder(0, 0, 200, 0));
+		currentPlayer.setBorder(BorderFactory.createEmptyBorder(0, 0, 100, 0));
+		add(result);
 
 	}
 	public void addWin(int player){
@@ -57,6 +59,16 @@ public class Scoreboard extends JPanel{
 			currentPlayer.setText("Player X's turn!");
 		else
 			currentPlayer.setText("Player O's turn!");
+	}
+	public void updateResult(int player){
+		if(player == 0)
+			result.setText("Player X has won!");
+		else if(player == 1)
+			result.setText("Player O has won!");
+		else
+			result.setText("Draw!");
+		
+		currentPlayer.setText(null);
 	}
 
 }
