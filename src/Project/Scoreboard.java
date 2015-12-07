@@ -1,12 +1,14 @@
 package Project;
 
 import java.awt.BorderLayout;
-import java.awt.Button;
-import java.io.File;
-
 import javax.swing.*;
 
 public class Scoreboard extends JPanel{
+	/**
+	 * Creates the scoring elements for the TicTacToe game.
+	 * Includes the number of wins for the X and O players.
+	 * Displays 'New game' button
+	 */
 	private int playerOWins;
 	private int playerXWins;
 	private int tieCount;
@@ -40,6 +42,8 @@ public class Scoreboard extends JPanel{
 		add(result);
 
 	}
+	
+	// Increment number of wins to player
 	public void addWin(int player){
 		if(player == 1){
 			playerOWins++;
@@ -50,16 +54,22 @@ public class Scoreboard extends JPanel{
 			playerX.setText("Player X: " + playerXWins);
 		}
 	}
+	
+	// Increment Tie running total
 	public void addTie(){
 		tieCount++;
 		tie.setText("Ties: " + tieCount);
 	}
+	
+	// Change Player's turn
 	public void updateTurn(int player){
 		if(player == 0)
 			currentPlayer.setText("Player X's turn!");
 		else
 			currentPlayer.setText("Player O's turn!");
 	}
+	
+	// Display winner of game or if tie
 	public void updateResult(int player){
 		if(player == 0)
 			result.setText("Player X has won!");

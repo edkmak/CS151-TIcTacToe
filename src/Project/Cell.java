@@ -3,8 +3,6 @@ package Project;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -16,19 +14,25 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 public class Cell extends JPanel{
+	/**
+	 * Class to display player's selection on game board
+	 * Draws X or O included ImageIcons in the space noted. 
+	 */
 	private char token;
 	private JLabel picLabel;
+	
 	// Constructor to assign value to cell
 	public Cell(){
 		token = ' ';
 		picLabel = new JLabel();
 		setBorder(new LineBorder(Color.RED, 1)); // Set cell's border
 	}
+	// Draws O ImageIcon in cell or alerts user via console the cell is occupied
 	public void drawO(){
 		if(token == ' '){
 			BufferedImage myPicture = null;
 			try {
-				myPicture = ImageIO.read(new File("D:/Homework/CS151/src/Project/O.png"));
+				myPicture = ImageIO.read(new File("C:/PATH_TO_PROJECT/151/src/Project/O.png"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -40,11 +44,12 @@ public class Cell extends JPanel{
 		}
 	}
 	
+	// Draws X ImageIcon in cell or alerts user via console the cell is occupied
 	public void drawX(){
 		if(token == ' '){
 			BufferedImage myPicture = null;
 			try {
-				myPicture = ImageIO.read(new File("D:/Homework/CS151/src/Project/X.png"));
+				myPicture = ImageIO.read(new File("C:/PATH_TO_PROJECT/151/src/Project/X.png"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -55,13 +60,19 @@ public class Cell extends JPanel{
 			System.out.println("This cell is already taken!");
 		}
 	}
+	
+	// Remove ImageIcon from cell
 	public void removeCell(){
 		this.remove(picLabel);
 		this.repaint();
 	}
+	
+	// Returns token
 	public int getToken(){
 		return token; 
 	}
+	
+	// Sets token
 	public void setToken(char c){
 		token = c;
 	}

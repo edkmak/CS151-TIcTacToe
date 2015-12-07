@@ -2,14 +2,17 @@ package Project;
 
 import java.awt.*;
 import java.awt.geom.*;
-import java.util.Random;
-
 import javax.swing.*;
 import java.awt.event.*;
 
 public class Board extends JFrame{
-	public static final int WINDOW_HEIGHT = 600;
-	public static final int WINDOW_WIDTH = 600;
+	/**
+	 * Creates the board game of TicTacToe
+	 * Sets JFrame to desired playing height/width
+	 * 
+	 */
+	public static final int WINDOW_HEIGHT = 700;
+	public static final int WINDOW_WIDTH = 700;
 
 	private Cell cellArray[];
 	private JPanel ticTacToeBoard;
@@ -20,6 +23,11 @@ public class Board extends JFrame{
 	private boolean enabled;
 
 	class GPanel extends JPanel{
+		/**
+		 * Creates panel to display cells in three rows and three columns.
+		 * Includes override component for cell and game boarders.
+		 */
+
 		public GPanel() {
 			setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
 		}
@@ -65,7 +73,7 @@ public class Board extends JFrame{
 		ticTacToeBoard.setLayout(new GridLayout(3,3));
 		enabled = true;
 		for(int i= 0; i < 9; i++){
-			Cell c = new Cell();
+			final Cell c = new Cell();
 			c.addMouseListener(new MouseAdapter(){
 				public void mousePressed(MouseEvent e){
 					if(enabled){
@@ -103,6 +111,7 @@ public class Board extends JFrame{
 			cellArray[i] = c;
 			ticTacToeBoard.add(cellArray[i]);
 		}
+		
 		//create New Game button
 		newGame = new Button("New Game");
 		newGame.setEnabled(true); //change when game state is finished
@@ -115,13 +124,17 @@ public class Board extends JFrame{
 		add(ticTacToeBoard, BorderLayout.WEST);
 		sb = new Scoreboard();
 		sb.add(newGame);
-		add(sb,BorderLayout.EAST);
-
+		
+		// Add usage of decorator pattern
+		ScoreboardDecorator cd = new ScoreboardDecorator(sb);
+		add(cd.getChild(),BorderLayout.EAST);
 
 		pack();
 		setDefaultCloseOperation(EXIT_ON_CLOSE); 
 		setVisible(true);
 	}
+	
+	// Resets the game when 'New Game' is selected
 	public void reset(){
 		//reset all conditions
 		for(Cell c: cellArray){
@@ -131,6 +144,7 @@ public class Board extends JFrame{
 		repaint();
 		enabled = true;
 	}
+	// Checks to ensure no player won
 	public boolean checkTie(){
 		for(Cell c: cellArray){
 			if(c.getToken() == ' ')
@@ -138,6 +152,8 @@ public class Board extends JFrame{
 		}
 		return true;
 	}
+	
+	// Returns True/False if play wins
 	public boolean checkWin(char player){
 		return((cellArray[0].getToken() == player && cellArray[1].getToken() == player && cellArray[2].getToken() == player) || //first row
 				(cellArray[3].getToken() == player && cellArray[4].getToken() == player && cellArray[5].getToken() == player) || //second row
